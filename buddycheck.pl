@@ -23,9 +23,14 @@ my $response = HTTP::Tiny->new->get('http://' . $buddy . ':' . $port . '/metrics
 
 say "$response->{protocol} $response->{status} $response->{reason}" unless $response->{status} == 200;
 
-my $metric = grep {/^node_systemd_system_running/} $response->{content};
+# match any of the following:
+#  node_systemd_system_running 0
+#  node_systemd_system_running 1
+#  node_systemd_system_running{label="value", ...} 0
+#  node_systemd_system_running{label="value", ...} 1
+$response->{content} =~ /^node_systemd_system_running(?:\{.*\})?\s([01])/m;
 
-if ($metric == 1) {
+if ($1 == 1) {
 	say "Buddy is healthy"
 } else {
 	say "Buddy is sick";
