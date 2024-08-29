@@ -19,7 +19,7 @@
 
 %bcond_without apparmor
 Name:           buddycheck
-Version:        1.1
+Version:        1.2
 Release:        0
 Summary:        Health check
 License:        EUPL-1.2
