@@ -25,7 +25,6 @@ Summary:        Health check
 License:        EUPL-1.2
 URL:            https://git.com.de/Georg/buddycheck
 Source:         %{name}-%{version}.tar.zst
-BuildRequires:  pod2man
 %if %{with apparmor}
 BuildRequires:  apparmor-rpm-macros
 %endif
