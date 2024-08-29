@@ -18,7 +18,7 @@ usage:
 install:
 	install -d '$(DESTDIR)$(BINDIR)' '$(DESTDIR)$(MANDIR)/man1' '$(DESTDIR)$(SYSCONFDIR)/apparmor.d'
 	install buddycheck.pl '$(DESTDIR)$(BINDIR)/buddycheck'
-	pod2man buddycheck.1 > '$(DESTDIR)$(MANDIR)/man1/buddycheck.1'
+	pod2man buddycheck.pod > '$(DESTDIR)$(MANDIR)/man1/buddycheck.1'
 	sed 's?__BINDIR__?$(BINDIR)?' buddycheck.apparmor > '$(DESTDIR)$(SYSCONFDIR)/apparmor.d/buddycheck'
 
 uninstall:
