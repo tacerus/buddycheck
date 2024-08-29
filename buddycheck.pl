@@ -12,7 +12,6 @@
 use 5.26.0;
 
 use HTTP::Tiny;
-use Data::Dumper;
 
 my $buddy = $ENV{'BUDDYCHECK_HOST'};
 	die "Please set BUDDYCHECK_HOST\n" unless $buddy;
