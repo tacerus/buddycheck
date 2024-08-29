@@ -11,12 +11,12 @@ abi <abi/3.0>,
 
 include <tunables/global>
 
-profile buddycheck /usr/local/bin/buddycheck {
+profile buddycheck __BINDIR__/buddycheck {
   include <abstractions/base>
   include <abstractions/nameservice>
   include <abstractions/perl>
 
   /usr/bin/perl ix,
-  /usr/local/bin/buddycheck r,
+  __BINDIR__/buddycheck r,
 
 }

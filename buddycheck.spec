@@ -16,6 +16,7 @@
 # Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
+%bcond_without apparmor
 
 Name:           buddycheck
 Version:        1
@@ -25,6 +26,9 @@ License:        EUPL-1.2
 URL:            https://git.com.de/Georg/buddycheck
 Source:         %{name}-%{version}.tar.zst
 BuildRequires:  pod2man
+%if %{with apparmor}
+BuildRequires:  apparmor-rpm-macros
+%endif
 
 %description
 BuddyCheck is a tool querying the systemd health through Prometheus Node Exporter.
@@ -38,11 +42,20 @@ BuddyCheck is a tool querying the systemd health through Prometheus Node Exporte
 %install
 %make_install
 
+%if %{with apparmor}
+%post
+%{apparmor_reload %{_sysconfdir}/apparmor.d/%{name}}
+%endif
+
 %files
 %license LICENSE
 %doc README.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1%{ext_man}
+%if %{without apparmor}
+%exclude
+%endif
+%{_sysconfdir}/apparmor.d/%{name}
 
 %changelog
 
