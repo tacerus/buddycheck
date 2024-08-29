@@ -1,0 +1,37 @@
+=head1 NAME
+
+	BuddyCheck - Report the systemd health of a host
+
+=head1 SYNPOSIS
+
+	buddycheck
+	BUDDYCHECK_HOST=localhost buddycheck
+	BUDDYCHECK_HOST=example.com BUDDYCHECK_PORT=9000 buddycheck
+
+=head1 DESCRIPTION
+
+	This application queries the "node_systemd_system_running" metric of a Prometheus Node Exporter with enabled systemd collector
+	and reflects the metric result with both a human understandable message printed to stderr and a computer parseable exit code.
+
+	If the remote system is healthy, the application will report "Buddy is healthy" and exit with 0.
+	With any other responses, the remote system should be assumed as faulty.
+
+=head1 CAVEATS
+
+	The application does not assess whether the remote HTTP server is indeed a Prometheus Node Exporter.
+	An abitrary HTTP server could easily serve the string "node_systemd_system_running" with a value of its choice.
+
+=head1 EXIT CODES
+
+	0	HTTP server responded with metric, and result is 0
+	111	HTTP server did not respond
+	125	HTTP server responded with metric, result is not 1
+	255	HTTP response was not 200 or required variable was not set
+
+=head1 AUTHOR
+
+	Georg Pfuetzenreuter
+
+=head1 LICENSE
+
+	Licensed under the European Union Public Licence.
