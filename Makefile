@@ -10,15 +10,18 @@
 PREFIX=/usr/local
 BINDIR=$(PREFIX)/bin
 MANDIR=$(PREFIX)/man
+SYSCONFDIR=$(PREFIX)/etc
 
 usage:
 	@echo 'Available targets: "install", "uninstall"'
 
 install:
-	install -d $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1
+	install -d $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1 $(SYSCONFDIR)/apparmor.d
 	install buddycheck.pl $(DESTDIR)$(BINDIR)/buddycheck
 	pod2man buddycheck.1 > $(DESTDIR)$(MANDIR)/man1/buddycheck.1
+	sed s?__BINDIR__?$(BINDIR)? buddycheck.apparmor > $(SYSCONFDIR)/apparmor.d/buddycheck
 
 uninstall:
 	rm $(DESTDIR)$(BINDIR)/buddycheck
 	rm $(DESTDIR)$(MANDIR)/man1/buddycheck.1
+	rm $(SYSCONFDIR)/apparmor.d/buddycheck
