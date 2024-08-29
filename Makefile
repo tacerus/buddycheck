@@ -16,12 +16,12 @@ usage:
 	@echo 'Available targets: "install", "uninstall"'
 
 install:
-	install -d $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1 $(SYSCONFDIR)/apparmor.d
+	install -d $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1 $(DESTDIR)$(SYSCONFDIR)/apparmor.d
 	install buddycheck.pl $(DESTDIR)$(BINDIR)/buddycheck
 	pod2man buddycheck.1 > $(DESTDIR)$(MANDIR)/man1/buddycheck.1
-	sed s?__BINDIR__?$(BINDIR)? buddycheck.apparmor > $(SYSCONFDIR)/apparmor.d/buddycheck
+	sed s?__BINDIR__?$(BINDIR)? buddycheck.apparmor > $(DESTDIR)$(SYSCONFDIR)/apparmor.d/buddycheck
 
 uninstall:
-	rm $(DESTDIR)$(BINDIR)/buddycheck
-	rm $(DESTDIR)$(MANDIR)/man1/buddycheck.1
+	rm $(BINDIR)/buddycheck
+	rm $(MANDIR)/man1/buddycheck.1
 	rm $(SYSCONFDIR)/apparmor.d/buddycheck
